@@ -1,0 +1,33 @@
+{
+  "name": "apex_tracker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "md akib <mohiuddinmostafakamal@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node dist/app.js",
+    "dev": "nodemon src/app.ts",
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "apex legend",
+    "express",
+    "typescript",
+    "nodejs"
+  ],
+  "description": "app to track apex legend stats for an user with provided credentials",
+  "dependencies": {
+    "config": "^3.2.2",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "inversify": "^5.0.1",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.0",
+    "@types/node": "^12.7.1",
+    "nodemon": "^1.19.1",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
+  }
+}
