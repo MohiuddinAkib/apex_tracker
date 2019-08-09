@@ -22,7 +22,14 @@ dotenv.config({
 // modules
 import config from 'config';
 import morgan from 'morgan';
-import express, { Express } from 'express';
+import express, {
+  Express,
+  ErrorRequestHandler,
+  Request,
+  Response,
+  NextFunction
+} from 'express';
+import 'express-async-errors';
 import { appDebug } from '@/utils/debug';
 import apexRoutes from '@/routes/profile';
 
@@ -31,6 +38,7 @@ const app: Express = express();
 
 // Set port
 app.set('port', config.get('APP_PORT'));
+app.set('x-powered-by', false);
 
 // middleware
 app.use(
@@ -43,6 +51,28 @@ app.use(
 );
 // Routes
 app.use('/api/v1/profile', apexRoutes);
+
+// Handling 404 request error
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const error = new Error('Route not found');
+  res.status(404);
+  next(error);
+});
+
+// Handling the request error
+app.use(
+  (
+    error: ErrorRequestHandler,
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    res.status(res.statusCode || 500).json({
+      message: 'Server error',
+      error: error
+    });
+  }
+);
 
 // Listen for request
 const server = app.listen(app.get('port'));
