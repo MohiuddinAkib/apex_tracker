@@ -14,7 +14,7 @@ const envPath = path.join(path.dirname(__dirname), '.env');
 // config dotenv
 dotenv.config({
   path: condition({
-    [`${envPath}.production`]: process.env.NODE_ENV === 'production',
+    [envPath]: process.env.NODE_ENV === 'production',
     [`${envPath}.development`]: process.env.NODE_ENV !== 'production'
   })
 });
@@ -30,6 +30,7 @@ import express, {
   NextFunction
 } from 'express';
 import 'express-async-errors';
+import cors from 'cors';
 import { appDebug } from '@/utils/debug';
 import apexRoutes from '@/routes/profile';
 
@@ -41,6 +42,7 @@ app.set('port', config.get('APP_PORT'));
 app.set('x-powered-by', false);
 
 // middleware
+app.use(cors());
 app.use(
   morgan(
     condition({
@@ -60,19 +62,27 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // Handling the request error
-app.use(
-  (
-    error: ErrorRequestHandler & { status?: number },
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
-    res.status(error.status || 500).json({
-      message: 'Server error',
-      error: error
-    });
-  }
-);
+if (app.get('env') === 'production') {
+  // Set static
+  app.use(express.static(path.join(__dirname, 'public')));
+  // Handle SPA
+  app.use(/.*/, (req: Request, res: Response, next: NextFunction) =>
+    res.sendFile(path.join(__dirname, 'public', 'index.html'))
+  );
+} else {
+  app.use(
+    (
+      error: ErrorRequestHandler & { status?: number },
+      req: Request,
+      res: Response,
+      next: NextFunction
+    ) => {
+      res.status(error.status || 500).json({
+        error: error
+      });
+    }
+  );
+}
 
 // Listen for request
 const server = app.listen(app.get('port'));
