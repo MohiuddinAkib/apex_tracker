@@ -54,20 +54,20 @@ app.use('/api/v1/profile', apexRoutes);
 
 // Handling 404 request error
 app.use((req: Request, res: Response, next: NextFunction) => {
-  const error = new Error('Route not found');
-  res.status(404);
+  const error: Error & { status?: number } = new Error('Route not found');
+  error.status = 404;
   next(error);
 });
 
 // Handling the request error
 app.use(
   (
-    error: ErrorRequestHandler,
+    error: ErrorRequestHandler & { status?: number },
     req: Request,
     res: Response,
     next: NextFunction
   ) => {
-    res.status(res.statusCode || 500).json({
+    res.status(error.status || 500).json({
       message: 'Server error',
       error: error
     });
