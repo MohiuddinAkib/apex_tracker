@@ -8,10 +8,14 @@
     "start": "node dist/app.js",
     "server": "nodemon src/app.ts",
     "build:server": "tsc -p .",
-    "client": "yarn --cwd ../client serve",
-    "build:client": "yarn --cwd ../client build",
+    "client": "yarn --cwd ./client serve",
+    "build:client": "yarn --cwd ./client build",
     "dev": "concurrently \" yarn server \" \" yarn client \"",
     "build": "concurrently \" yarn build:server \" \" yarn build:client \""
+  },
+  "engines": {
+    "node": "12.7.0",
+    "npm": "6.10.0"
   },
   "keywords": [
     "apex legend",
@@ -53,6 +57,6 @@
     "typescript": "^3.5.3"
   },
   "_moduleAliases": {
-    "@": "./dist"
+    "@": "./src"
   }
 }
