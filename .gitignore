@@ -1,7 +1,5 @@
 .env.development
 node_modules/
-client/
-server/src/
 
 # Log files
 npm-debug.log*
