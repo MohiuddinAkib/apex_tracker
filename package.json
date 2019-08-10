@@ -57,6 +57,6 @@
     "typescript": "^3.5.3"
   },
   "_moduleAliases": {
-    "@": "./src"
+    "@": "./dist"
   }
 }
