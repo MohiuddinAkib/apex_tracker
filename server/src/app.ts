@@ -31,6 +31,8 @@ import express, {
 } from 'express';
 import 'express-async-errors';
 import cors from 'cors';
+import helmet from 'helmet';
+import compression from 'compression';
 import { appDebug } from '@/utils/debug';
 import apexRoutes from '@/routes/profile';
 
@@ -42,15 +44,18 @@ app.set('port', config.get('APP_PORT'));
 app.set('x-powered-by', false);
 
 // middleware
-app.use(cors());
-app.use(
-  morgan(
-    condition({
-      dev: app.get('env') === 'development',
-      combined: app.get('env') === 'production'
-    })
-  )
-);
+app
+  .use(cors())
+  .use(helmet())
+  .use(compression())
+  .use(
+    morgan(
+      condition({
+        dev: app.get('env') === 'development',
+        combined: app.get('env') === 'production'
+      })
+    )
+  );
 // Routes
 app.use('/api/v1/profile', apexRoutes);
 
