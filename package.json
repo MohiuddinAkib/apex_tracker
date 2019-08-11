@@ -2,7 +2,7 @@
   "name": "apex_tracker",
   "version": "1.0.0",
   "private": true,
-  "main": "dist/app.js",
+  "main": "app.js",
   "author": "md akib <mohiuddinmostafakamal@gmail.com>",
   "license": "MIT",
   "scripts": {
