@@ -49,12 +49,6 @@ app.use('/api/v1/profile', apexRoutes);
 
 // Handling the request error
 if (app.get('env') === 'production') {
-  console.log(
-    config.get('PORT'),
-    app.get('port'),
-    config.get('TRACKER_NETWORK_API_URL'),
-    config.get('TRACKER_NETWORK_API_KEY')
-  );
   // Set static
   app.use(express.static(path.join(__dirname, 'public')));
   // Handle SPA
@@ -92,6 +86,4 @@ server
   )
   .once('error', (error: Error) => {
     appDebug('server start failed', error);
-    console.log(error);
-    process.exit(1);
   });
