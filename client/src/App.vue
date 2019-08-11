@@ -13,7 +13,7 @@
   </v-app>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import Vue from "vue";
 import Header from "@/components/Header/Header.vue";
 import { mapGetters, mapActions } from "vuex";
@@ -23,9 +23,28 @@ export default Vue.extend({
   components: {
     Header
   },
-  data: () => ({}),
+  data: () => ({
+    deferredPrompt: null
+  }),
   methods: {
-    ...mapActions(["removeInvalidFeedback"])
+    ...mapActions(["removeInvalidFeedback"]),
+    handleInstallPrompt(e: Event) {
+      this.deferredPrompt = e as any;
+      this.showInstallPromotion();
+    },
+    showInstallPromotion() {
+      // Show the prompt
+      (this.deferredPrompt as any).prompt();
+      // Wait for the user to respond to the prompt
+      (this.deferredPrompt as any).userChoice.then((choiceResult: any) => {
+        if (choiceResult.outcome === "accepted") {
+          console.log("User accepted the A2HS prompt");
+        } else {
+          console.log("User dismissed the A2HS prompt");
+        }
+        this.deferredPrompt = null;
+      });
+    }
   },
   computed: {
     ...mapGetters([
@@ -34,6 +53,12 @@ export default Vue.extend({
       "invalidFeedback",
       "globalSnackbarTimeOut"
     ])
+  },
+  created() {
+    window.addEventListener("beforeinstallprompt", this.handleInstallPrompt);
+  },
+  beforeDestroy() {
+    window.removeEventListener("beforeinstallprompt", this.handleInstallPrompt);
   }
 });
 </script>

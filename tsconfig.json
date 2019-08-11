@@ -16,6 +16,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "exclude": ["src/config/default.ts"],
+  "exclude": ["src/config/default.ts", "./client/**/*"],
   "include": ["src/**/*.ts"]
 }
