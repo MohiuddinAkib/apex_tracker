@@ -28,7 +28,7 @@ import apexRoutes from '@/routes/profile';
 const app: Express = express();
 
 // Set port
-app.set('port', config.get('APP_PORT'));
+app.set('port', config.get('PORT'));
 app.set('x-powered-by', false);
 
 // middleware
@@ -50,7 +50,7 @@ app.use('/api/v1/profile', apexRoutes);
 // Handling the request error
 if (app.get('env') === 'production') {
   console.log(
-    config.get('APP_PORT'),
+    config.get('PORT'),
     app.get('port'),
     config.get('TRACKER_NETWORK_API_URL'),
     config.get('TRACKER_NETWORK_API_KEY')

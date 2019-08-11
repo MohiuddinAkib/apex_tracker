@@ -13,5 +13,5 @@ dotenv.config({
 export default {
   TRACKER_NETWORK_API_URL: process.env.TRACKER_NETWORK_API_URL,
   TRACKER_NETWORK_API_KEY: process.env.TRACKER_NETWORK_API_KEY,
-  APP_PORT: process.env.APP_PORT
+  PORT: process.env.PORT
 };
