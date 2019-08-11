@@ -2,22 +2,10 @@
 import 'reflect-metadata';
 // Module alias module
 import 'module-alias/register';
-// dotenv
-import dotenv from 'dotenv';
 // Path module
 import path from 'path';
 // Import custom module
 import condition from '@/utils/condition';
-
-// constructing .env path
-const envPath = path.join(path.dirname(__dirname), '.env');
-// config dotenv
-dotenv.config({
-  path: condition({
-    [envPath]: process.env.NODE_ENV === 'production',
-    [`${envPath}.development`]: process.env.NODE_ENV !== 'production'
-  })
-});
 
 // modules
 import config from 'config';
