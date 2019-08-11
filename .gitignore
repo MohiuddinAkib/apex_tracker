@@ -1,6 +1,7 @@
 .env.development
 node_modules
 /dist
+/config
 
 # Log files
 npm-debug.log*
