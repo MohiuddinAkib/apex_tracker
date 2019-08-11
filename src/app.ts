@@ -49,7 +49,12 @@ app.use('/api/v1/profile', apexRoutes);
 
 // Handling the request error
 if (app.get('env') === 'production') {
-  console.log(path.join(__dirname, 'public', 'index.html'));
+  console.log(
+    config.get('APP_PORT'),
+    app.get('port'),
+    config.get('TRACKER_NETWORK_API_URL'),
+    config.get('TRACKER_NETWORK_API_KEY')
+  );
   // Set static
   app.use(express.static(path.join(__dirname, 'public')));
   // Handle SPA
