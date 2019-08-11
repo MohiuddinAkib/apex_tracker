@@ -47,22 +47,23 @@ app
 // Routes
 app.use('/api/v1/profile', apexRoutes);
 
-// Handling 404 request error
-app.use((req: Request, res: Response, next: NextFunction) => {
-  const error: Error & { status?: number } = new Error('Route not found');
-  error.status = 404;
-  next(error);
-});
-
 // Handling the request error
 if (app.get('env') === 'production') {
+  console.log(path.join(__dirname, 'public', 'index.html'));
   // Set static
   app.use(express.static(path.join(__dirname, 'public')));
   // Handle SPA
-  app.use(/.*/, (req: Request, res: Response, next: NextFunction) =>
+  app.use('*', (req: Request, res: Response, next: NextFunction) =>
     res.sendFile(path.join(__dirname, 'public', 'index.html'))
   );
 } else {
+  // Handling 404 request error
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    const error: Error & { status?: number } = new Error('Route not found');
+    error.status = 404;
+    next(error);
+  });
+
   app.use(
     (
       error: ErrorRequestHandler & { status?: number },
