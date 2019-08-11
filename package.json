@@ -6,7 +6,7 @@
   "author": "md akib <mohiuddinmostafakamal@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node dist/app.js",
+    "start": "node app.js",
     "server": "nodemon src/app.ts",
     "build:server": "tsc -p .",
     "client": "yarn --cwd ./client serve",
