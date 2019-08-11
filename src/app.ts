@@ -92,5 +92,6 @@ server
   )
   .once('error', (error: Error) => {
     appDebug('server start failed', error);
+    console.log(error);
     process.exit(1);
   });
