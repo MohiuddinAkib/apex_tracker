@@ -6,6 +6,13 @@
       <router-view></router-view>
     </v-content>
 
+    <v-snackbar top v-model="showInstallBtn" :timeout="0" color="primary">
+      Install this app
+      <v-btn @click.native="addToHomeScreen" text dark>
+        <font-awesome-icon icon="download" class="mr-3"></font-awesome-icon>
+      </v-btn>
+    </v-snackbar>
+
     <v-snackbar v-model="showInvalidFeedback" left :timeout="globalSnackbarTimeOut">
       {{ invalidFeedback }}
       <v-btn text color="primary" @click.native="removeInvalidFeedback">Close</v-btn>
@@ -24,7 +31,8 @@ export default Vue.extend({
     Header
   },
   data: () => ({
-    deferredPrompt: null
+    deferredPrompt: null,
+    showInstallBtn: false
   }),
   methods: {
     ...mapActions(["removeInvalidFeedback"]),
@@ -33,12 +41,15 @@ export default Vue.extend({
       this.showInstallPromotion();
     },
     showInstallPromotion() {
+      this.showInstallBtn = true;
+    },
+    addToHomeScreen() {
       // Show the prompt
       (this.deferredPrompt as any).prompt();
       // Wait for the user to respond to the prompt
       (this.deferredPrompt as any).userChoice.then((choiceResult: any) => {
         if (choiceResult.outcome === "accepted") {
-          console.log("User accepted the A2HS prompt");
+          this.showInstallBtn = false;
         } else {
           console.log("User dismissed the A2HS prompt");
         }

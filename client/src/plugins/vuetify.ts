@@ -4,9 +4,10 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
+import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload';
 
 Vue.component('font-awesome-icon', FontAwesomeIcon); // Register component globally
-library.add(fas, faChevronLeft); // Include needed icons
+library.add(fas, faChevronLeft, faDownload); // Include needed icons
 
 Vue.use(Vuetify);
 
