@@ -1,6 +1,6 @@
 {
-  "name": "client",
-  "short_name": "client",
+  "name": "Apex Tracker",
+  "short_name": "Apex Tracker",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
