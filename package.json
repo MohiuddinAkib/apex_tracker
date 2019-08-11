@@ -13,8 +13,7 @@
     "client:install": "yarn --cwd ./client install",
     "build:client": "yarn --cwd ./client build",
     "dev": "concurrently \" yarn server \" \" yarn client \"",
-    "build": "yarn build:server",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn client:install && yarn build:client"
+    "build": "yarn build:server && yarn client:install && yarn build:client"
   },
   "engines": {
     "node": "12.7.0",
