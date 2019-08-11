@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container grid-list-xs>
-      <v-layout column wrap>
+      <v-layout>
         <v-flex xs12 md8 class="mx-auto">
           <div class="text-center">
             <v-progress-circular
@@ -25,7 +25,11 @@
             </v-card-title>
 
             <v-container>
-              <v-layout>
+              <v-layout
+                :column="$vuetify.breakpoint.smAndDown"
+                :row="$vuetify.breakpoint.mdAndUp"
+                wrap
+              >
                 <v-flex xs12 md4>
                   <v-img :src="profileData.segments[1].metadata.imageUrl"></v-img>
                 </v-flex>
