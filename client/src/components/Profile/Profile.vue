@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container grid-list-xs>
-      <v-layout row wrap>
+      <v-layout>
         <v-flex xs12 md8 class="mx-auto">
           <div class="text-center">
             <v-progress-circular
